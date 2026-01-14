@@ -133,15 +133,14 @@ actor WebSocket: NSObject, URLSessionWebSocketDelegate, WebSocketProviding {
         
         print("Triggering '\(type)' event (\(callbacks.count) listeners)")
         
-        Task {
-            for callback in callbacks {
-                if let eventData = eventData {
-                    callback.call(withArguments: [eventData])
-                } else {
-                    callback.call(withArguments: [])
-                }
+        for callback in callbacks {
+            if let eventData = eventData {
+                callback.call(withArguments: [eventData])
+            } else {
+                callback.call(withArguments: [])
             }
         }
+
     }
 
     // MARK: - Connection Management

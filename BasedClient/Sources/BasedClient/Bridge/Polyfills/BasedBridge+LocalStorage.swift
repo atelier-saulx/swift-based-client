@@ -13,33 +13,32 @@ import JavaScriptCore
 
 extension BasedBridge {
     
-    func addLocalStorage(with context: JSContext) {
+    func addLocalStorage(with context: JSContext, userDefaults: UserDefaultsProviding) {
         let storageKey = "BasedBridge.localStorage"
         
         let getItem: @convention(block) (String) -> String? = { key in
-            let store = UserDefaults.standard.dictionary(forKey: storageKey) as? [String: String] ?? [:]
+            let store = userDefaults.dictionary(forKey: storageKey) as? [String: String] ?? [:]
             return store[key]
         }
         
         let setItem: @convention(block) (String, String) -> Void = { key, value in
-            print("SWIFT: key \(key) value \(value)")
-            var store = UserDefaults.standard.dictionary(forKey: storageKey) as? [String: String] ?? [:]
+            var store = userDefaults.dictionary(forKey: storageKey) as? [String: String] ?? [:]
             store[key] = value
-            UserDefaults.standard.set(store, forKey: storageKey)
+            userDefaults.set(store, forKey: storageKey)
         }
         
         let removeItem: @convention(block) (String) -> Void = { key in
-            var store = UserDefaults.standard.dictionary(forKey: storageKey) as? [String: String] ?? [:]
+            var store = userDefaults.dictionary(forKey: storageKey) as? [String: String] ?? [:]
             store.removeValue(forKey: key)
-            UserDefaults.standard.set(store, forKey: storageKey)
+            userDefaults.set(store, forKey: storageKey)
         }
         
         let clear: @convention(block) () -> Void = {
-            UserDefaults.standard.removeObject(forKey: storageKey)
+            userDefaults.removeObject(forKey: storageKey)
         }
         
         let getLength: @convention(block) () -> Int = {
-            let store = UserDefaults.standard.dictionary(forKey: storageKey) ?? [:]
+            let store = userDefaults.dictionary(forKey: storageKey) ?? [:]
             return store.count
         }
         

@@ -2182,8 +2182,11 @@ var Based = (() => {
       });
     }, "waitForStream");
     async function* loadFileInChunks(file) {
+        console.log("loadFileInChunks")
       let totalBytes = 0;
+        
       while (totalBytes < file.size) {
+          console.log(file.size)
         const end = Math.min(totalBytes + file.size, totalBytes + readSize);
         const chunk = file.slice(totalBytes, end);
         const reader = new FileReader();
@@ -2197,6 +2200,7 @@ var Based = (() => {
         totalBytes += chunk.size;
         yield totalBytes;
       }
+        console.log("out of while")
       yield totalBytes;
     }
     __name(loadFileInChunks, "loadFileInChunks");
@@ -3829,9 +3833,11 @@ var Based = (() => {
             client.streamFunctionResponseListeners.delete(id);
           }
         } else if (subType === FunctionClientSubType.streamChunkResponse) {
+            console.log('[incoming] streamChunkResponse received!');
           const id = readUint24(buffer, 5);
           const seqId = buffer[8];
           const code = buffer[9];
+            console.log('[incoming] streamChunkResponse - id:', id, 'seqId:', seqId, 'code:', code);
           let maxChunkSize = 0;
           if (len > 7) {
             maxChunkSize = readUint24(buffer, 10);
@@ -4070,6 +4076,7 @@ var Based = (() => {
           }
         });
         ws2.addEventListener("message", (d2) => {
+            console.log('[WS] Raw message received, type:', typeof d.data, 'length:', d.data?.byteLength || d.data?.length);
           client.onData(d2);
         });
         ws2.addEventListener("open", () => {

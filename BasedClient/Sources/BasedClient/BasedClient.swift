@@ -46,6 +46,12 @@ public protocol BasedClient {
         _ functionName: String,
         payload: Request
     ) async throws -> AsyncThrowingStream<Response, Error>
+    
+    func stream(
+        _ functionName: String,
+        options: StreamOptions,
+        progressListener: StreamProgressListener?
+    ) async throws
 }
 
 public struct QueryOptions: Sendable {} // TODO define query options
@@ -169,6 +175,45 @@ public final class Based: BasedClient, Sendable {
     ) async throws -> AsyncThrowingStream<Response, Error> {
         let payload = try encoder.encode(payload)
         return try await bridge.queryStream(functionName, payload: payload)
+    }
+    
+    //MARK: - Stream
+    
+    public func stream(
+        _ functionName: String,
+        options: StreamOptions,
+        progressListener: StreamProgressListener? = nil
+    ) async throws {
+
+        let (data, size) = try getContentData(from: options.contents)
+        
+        try await bridge.uploadStream(
+            functionName: functionName,
+            data: data,
+            size: size,
+            fileName: options.fileName,
+            mimeType: options.mimeType,
+            extension: options.extension,
+            payload: options.payloadJSON ?? "{}",
+            progressListener: progressListener
+        )
+    }
+    
+    private func getContentData(from contents: StreamOptions.StreamContents) throws -> (Data, Int) {
+        switch contents {
+        case .file(let url):
+            let data = try Data(contentsOf: url)
+            return (data, data.count)
+            
+        case .data(let data):
+            return (data, data.count)
+            
+        case .string(let string):
+            guard let data = string.data(using: .utf8) else {
+                throw BasedError.encodingFailed
+            }
+            return (data, data.count)
+        }
     }
 
 }

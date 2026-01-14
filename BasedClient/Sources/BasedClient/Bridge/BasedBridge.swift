@@ -21,6 +21,16 @@ protocol BasedBridgeProtocol: Sendable {
         _ functionName: String,
         payload: Data
     ) async throws -> AsyncThrowingStream<Response, Error>
+    func uploadStream(
+        functionName: String,
+        data: Data,
+        size: Int,
+        fileName: String,
+        mimeType: String,
+        extension: String,
+        payload: String,
+        progressListener: StreamProgressListener?
+    ) async throws
 }
 
 actor BasedBridge: BasedBridgeProtocol {
@@ -32,6 +42,7 @@ actor BasedBridge: BasedBridgeProtocol {
     private let context: JSContextProviding
     private let bundle: BundleProviding
     private let webSocketFactory: WebSocketFactoryProviding
+    private let userDefaults: UserDefaultsProviding
     private var webSocket: WebSocket?
     
     
@@ -63,6 +74,7 @@ actor BasedBridge: BasedBridgeProtocol {
         context: JSContextProviding,
         bundle: BundleProviding,
         webSocketFactory: WebSocketFactoryProviding = DefaultWebSocketFactory(),
+        userDefaults: UserDefaultsProviding = UserDefaultsWrapper(),
         instanceId: String
     ) {
         self.queue = queue
@@ -70,6 +82,7 @@ actor BasedBridge: BasedBridgeProtocol {
         self.instanceId = instanceId
         self.bundle = bundle
         self.webSocketFactory = webSocketFactory
+        self.userDefaults = userDefaults
         self.unownedExecutor = queue.unownedSerialExecutor
     }
     
@@ -89,6 +102,7 @@ actor BasedBridge: BasedBridgeProtocol {
             context: context,
             bundle: BundleWrapper(),
             webSocketFactory: DefaultWebSocketFactory(),
+            userDefaults: UserDefaultsWrapper(),
             instanceId: instanceId
         )
         try await bridge.setup()
@@ -123,16 +137,13 @@ actor BasedBridge: BasedBridgeProtocol {
             let script = """
             (function() {
                 try {
-                    const authState = basedClient.authState;
-                    console.log('[Based] Current auth state:', authState);
-                    
+                    const authState = basedClient.authState;                    
                     if (authState === null || authState === undefined) {
                         return { success: true, data: null };
                     }
                     
                     return { success: true, data: authState };
                 } catch (error) {
-                    console.error('[Based] Failed to get auth state:', error.message);
                     return { success: false, error: error.message || String(error) };
                 }
             })()
@@ -149,12 +160,10 @@ actor BasedBridge: BasedBridgeProtocol {
             throw BasedError.jsError(errorMessage)
         }
         
-        // Check if data is null
         guard let data = result.objectForKeyedSubscript("data"), !data.isNull, !data.isUndefined else {
             return nil
         }
         
-        // Stringify the auth state object
         guard let stringifyFunc = context.evaluateScript("JSON.stringify"),
               let jsonString = stringifyFunc.call(withArguments: [data])?.toString() else {
             throw BasedError.resultSerializationFailed
@@ -168,15 +177,10 @@ actor BasedBridge: BasedBridgeProtocol {
         let script = """
             (async function() {
                 try {                    
-                    console.log("lets auth now")
                     const payload = JSON.parse('\(state.escapedJSON)');
-                    console.log(payload)
                     await basedClient.setAuthState(payload)
-                    console.log('[Based Auth Success]');
                     return { success: true };
                 } catch (error) {
-                    console.log('So auth is failing....')
-                    console.error(error.message);
                     return { success: false, error: error.message || String(error) };
                 }
             })()
@@ -202,12 +206,9 @@ actor BasedBridge: BasedBridgeProtocol {
         (async function() {
             try {
                 const payload = JSON.parse('\(jsonPayload.escapedJSON)');
-                console.log('[Based Call] \(escapedFunctionName)', payload);
                 const result = await basedClient.call('\(escapedFunctionName)', payload);
-                console.log('[Based Success]');
                 return { success: true, data: result };
             } catch (error) {
-                console.error(error.message);
                 return { success: false, error: error.message || String(error) };
             }
         })()
@@ -248,14 +249,10 @@ actor BasedBridge: BasedBridgeProtocol {
         (async function() {
             try {
                 const payload = JSON.parse('\(jsonPayload.escapedJSON)');
-                console.log('[Based Query] \(escapedFunctionName)', payload);
                 const query = basedClient.query('\(escapedFunctionName)', payload);
-                console.log('[Based Query] Query object created');
                 const result = await query.get();
-                console.log('[Based Query Success]');
                 return { success: true, data: result };
             } catch (error) {
-                console.error(error.message);
                 return { success: false, error: error.message || String(error) };
             }
         })()
@@ -264,15 +261,11 @@ actor BasedBridge: BasedBridgeProtocol {
             script = """
         (async function() {
             try {
-                console.log('[Based Query] \(escapedFunctionName) (no payload)');
                 const query = basedClient.query('\(escapedFunctionName)');
-                console.log('[Based Query] Query object created');
                 console.log('[Based Query] Client calculated ID:', query.id);
                 const result = await query.get();
-                console.log('[Based Query Success]');
                 return { success: true, data: result };
             } catch (error) {
-                console.error(error.message);
                 return { success: false, error: error.message || String(error) };
             }
         })()
@@ -296,7 +289,7 @@ actor BasedBridge: BasedBridgeProtocol {
         addTextEncoderDecoder(with: context)
         addFetch(with: context)
         addTimers(with: context)
-        addLocalStorage(with: context)
+        addLocalStorage(with: context, userDefaults: userDefaults)
         addWebSocket(with: context, and: webSocketFactory)
     }
     
