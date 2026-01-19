@@ -60,7 +60,7 @@ async function bundle() {
       format: 'iife',
       globalName: 'Based',
       target: 'es2021',
-      minify: false,
+      minify: true,
       keepNames: true,
       treeShaking: true,
       metafile: true

@@ -173,7 +173,6 @@ actor BasedBridge: BasedBridgeProtocol {
     }
     
     func setAuthState(state: String) async throws {
-        print(state.escapedJSON)
         let script = """
             (async function() {
                 try {                    
@@ -334,18 +333,15 @@ actor BasedBridge: BasedBridgeProtocol {
                 let success = wrapper.objectForKeyedSubscript("success")?.toBool() ?? false
                 
                 if success {
-                    print("Operation succeeded")
                     continuation.resume()
                 } else {
                     let errorMessage = wrapper.objectForKeyedSubscript("error")?.toString() ?? "Unknown error"
-                    print("Operation failed:", errorMessage)
                     continuation.resume(throwing: BasedError.jsError(errorMessage))
                 }
             }
             
             let catchCallback: @convention(block) (JSValue) -> Void = { error in
                 let errorMessage = error.toString() ?? "Unknown error"
-                print("Promise rejected:", errorMessage)
                 continuation.resume(throwing: BasedError.jsError(errorMessage))
             }
             

@@ -17,8 +17,8 @@ extension BasedBridge {
         let polyfill = """
         window = {}
         window.location = { href: "" }
-        var global = this;
-        var globalThis = this;
+        let global = this;
+        let globalThis = this;
         """
         context.evaluateScript(polyfill)
     }

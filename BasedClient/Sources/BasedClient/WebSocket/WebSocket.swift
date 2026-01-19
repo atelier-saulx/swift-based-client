@@ -100,14 +100,11 @@ actor WebSocket: NSObject, URLSessionWebSocketDelegate, WebSocketProviding {
         return ws
     }
     
-    deinit {
-        print("Webseocket deinitialized")
-    }
+    deinit {}
     
     // MARK: - Event Handler Registration
     
     func addEventListener(type: String, callback: JSValue) {
-        print("Storing listener for '\(type)' on queue: \(queue.label)")
         if jsListeners[type] == nil {
             jsListeners[type] = []
         }
@@ -131,8 +128,6 @@ actor WebSocket: NSObject, URLSessionWebSocketDelegate, WebSocketProviding {
             return
         }
         
-        print("Triggering '\(type)' event (\(callbacks.count) listeners)")
-        
         for callback in callbacks {
             if let eventData = eventData {
                 callback.call(withArguments: [eventData])
@@ -147,7 +142,6 @@ actor WebSocket: NSObject, URLSessionWebSocketDelegate, WebSocketProviding {
     
     func connect() async {
         guard state == .disconnected else {
-            print("WebSocket already connected or connecting")
             return
         }
         
@@ -221,12 +215,10 @@ actor WebSocket: NSObject, URLSessionWebSocketDelegate, WebSocketProviding {
     private func receiveMessage() async {
         
         guard state == .connected, let task = webSocketTask else {
-            print("[receiveMessage] Loop stopped - not connected")
             return
         }
         
         do {
-            print("[receiveMessage] Waiting for message...")
             
             switch try await task.receive() {
             case let .data(data):
@@ -234,14 +226,10 @@ actor WebSocket: NSObject, URLSessionWebSocketDelegate, WebSocketProviding {
                 if let uint8Array = createJSUint8Array(from: data) {
                     let event = jsContext?.evaluateScript("""
                     (function(uint8Array) {
-                        
                         const event = {
                             type: 'message',
                             data: uint8Array
                         };
-                        
-                        console.log('[Event Creation] event.data instanceof Uint8Array:', event.data instanceof Uint8Array);
-                        
                         return event;
                     })
                 """)?.call(withArguments: [uint8Array])
@@ -251,22 +239,15 @@ actor WebSocket: NSObject, URLSessionWebSocketDelegate, WebSocketProviding {
                 let jsString = JSValue(object: text, in: jsContext)
                 triggerJSEvent(type: "message", eventData: jsString)
             @unknown default:
-                print("[receiveMessage] Unknown message type")
                 startPingLoop()
             }
-            
-            print(" [receiveMessage] Continuing loop...")
             
             await receiveMessage()
             
         } catch {
-            print("[receiveMessage] Error: \(error)")
-            
             if let urlError = error as? URLError,
                urlError.code == .timedOut,
                state == .connected {
-                
-                print("Timeout - retrying once...")
                 try? await Task.sleep(for: .seconds(1))
                 await receiveMessage()
                 
@@ -336,13 +317,9 @@ actor WebSocket: NSObject, URLSessionWebSocketDelegate, WebSocketProviding {
     
     // MARK: -
     
-    @nonobjc func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {
-        print(session)
-    }
+    @nonobjc func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didOpenWithProtocol protocol: String?) {}
     
-    @nonobjc func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didCloseWith closeCode: URLSessionWebSocketTask.CloseCode, reason: Data?) {
-        print(session)
-    }
+    @nonobjc func urlSession(_ session: URLSession, webSocketTask: URLSessionWebSocketTask, didCloseWith closeCode: URLSessionWebSocketTask.CloseCode, reason: Data?) {}
 }
 
 // MARK: - Errors
@@ -376,13 +353,10 @@ extension WebSocket {
         
         while shouldPing {
             guard let task = webSocketTask else {
-                print("No websocket task")
                 break
             }
             
             let success = await withCheckedContinuation { continuation in
-                print("Sending ping at \(Date()) \(Thread.current)")
-                
                 task.sendPing { error in
                     if let error = error {
                         print("✗ Ping failed: \(error) \(Thread.current)")

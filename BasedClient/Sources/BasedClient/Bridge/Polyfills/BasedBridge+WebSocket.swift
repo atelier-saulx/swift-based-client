@@ -30,7 +30,6 @@ extension BasedBridge {
             }
             
             let addEventListener: @convention(block) (String, JSValue) -> Void = { type, callback in
-                print("JS called addEventListener('\(type)', callback)")
                 Task {
                     await instance.addEventListener(type: type, callback: callback)
                 }
@@ -41,7 +40,6 @@ extension BasedBridge {
             let send: @convention(block) (JSValue) -> Void = {  value in
                 Task {
                     guard let ws = await self.getWebSocket() else {
-                        print("[WebSocket] No instance")
                         return
                     }
                     
@@ -49,7 +47,6 @@ extension BasedBridge {
                         try? await ws.send(text: value.toString())
                     } else if value.isObject {
                         guard let length = value.objectForKeyedSubscript("length")?.toUInt32() else {
-                            print("Object has no length property")
                             return
                         }
                         

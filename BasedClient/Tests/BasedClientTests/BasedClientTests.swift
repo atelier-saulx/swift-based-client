@@ -29,6 +29,7 @@ struct TestQueryResponse: Codable, Sendable, Equatable {
 // MARK: - Based Client Tests
 
 final class MockBasedBridge: BasedBridgeProtocol, @unchecked Sendable {
+    
     private let lock = NSLock()
     
     private var _executeCallCalls: [(functionName: String, jsonPayload: String?)] = []
@@ -117,6 +118,20 @@ final class MockBasedBridge: BasedBridgeProtocol, @unchecked Sendable {
             continuation.finish()
         }
     }
+    
+    func uploadStream(
+        functionName: String,
+        data: Data,
+        size: Int,
+        fileName: String,
+        mimeType: String,
+        extension: String,
+        payload: String,
+        progressListener: StreamProgressListener?
+    ) async throws {
+        
+    }
+    
 }
 
 

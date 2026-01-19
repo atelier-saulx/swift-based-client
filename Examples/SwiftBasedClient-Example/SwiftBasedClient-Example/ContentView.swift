@@ -57,7 +57,12 @@ class ViewModel {
     
     func setupClient() async {
         do {
-            let client = try await Based(basedOpts: BasedOpts.url("ws://localhost:61808"))
+            let client = try await Based(basedOpts: BasedOpts.url("ws://localhost:1234"))
+            /*
+             or
+             
+             let client = try await Based(basedOpts: BasedOpts.options(options: BasedOpts.Options(env: "env", org: "org", project: "proj")))
+            */
             self.client = client
             
             if let state = try await client.authState() {
@@ -155,6 +160,7 @@ class ViewModel {
                 progressListener: { [weak self] progress, bytes in
                     Task {  @MainActor [weak self] in
                         self?.uploadProgress = progress
+                        self?.uploadBytesTransferred = bytes
                     }
                 }
             )
@@ -169,9 +175,8 @@ class ViewModel {
         let tempDir = FileManager.default.temporaryDirectory
         let fileURL = tempDir.appendingPathComponent("test-file.bin")
         
-        let targetSize = 1_048_576 // 1MB
+        let targetSize = 1_048_576
         
-        // Generate random data
         var data = Data(count: targetSize)
         data.withUnsafeMutableBytes { buffer in
             guard let baseAddress = buffer.baseAddress else { return }
@@ -184,29 +189,6 @@ class ViewModel {
         print("File size: \(data.count) bytes")
         
         return fileURL
-    }
-    
-    func createTestImage() -> URL? {
-        let tempDir = FileManager.default.temporaryDirectory
-        let imageURL = tempDir.appendingPathComponent("test-image.png")
-        
-        let size = CGSize(width: 300, height: 300)
-        let renderer = UIGraphicsImageRenderer(size: size)
-        let image = renderer.image { context in
-            UIColor.systemBlue.setFill()
-            context.fill(CGRect(origin: .zero, size: size))
-            
-            UIColor.white.setFill()
-            let rect = CGRect(x: 50, y: 50, width: 2000, height: 2000)
-            context.fill(rect)
-        }
-        
-        if let data = image.pngData() {
-            try? data.write(to: imageURL)
-            return imageURL
-        }
-        
-        return nil
     }
 }
 
@@ -298,25 +280,6 @@ struct ContentView: View {
                     .frame(maxWidth: .infinity)
                     .padding()
                     .background(Color.orange)
-                    .foregroundColor(.white)
-                    .cornerRadius(12)
-                    .disabled(viewModel.isUploading || viewModel.client == nil)
-                    
-                    Button {
-                        Task {
-                            if let imageURL = viewModel.createTestImage() {
-                                await viewModel.uploadFile(imageURL)
-                            }
-                        }
-                    } label: {
-                        HStack {
-                            Image(systemName: "photo.badge.plus")
-                            Text("Upload Generated Image")
-                        }
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(Color.cyan)
                     .foregroundColor(.white)
                     .cornerRadius(12)
                     .disabled(viewModel.isUploading || viewModel.client == nil)

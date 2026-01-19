@@ -15,7 +15,14 @@ public enum BasedOpts: Sendable {
         let env: String
         let org: String
         let project: String
-        let cluster: String = "production"
+        let cluster: String?
+        
+        public init(env: String, org: String, project: String, cluster: String? = nil) {
+            self.env = env
+            self.org = org
+            self.project = project
+            self.cluster = cluster
+        }
     }
     
     public var jsValue: String {
@@ -26,13 +33,12 @@ public enum BasedOpts: Sendable {
                 const basedClient = new Based.BasedClient({url: "\(url)"})
                 globalThis.basedClient = basedClient;
                 await basedClient.connect();
-                console.log("***CONNECTED***")
             })();
             """
         case .options(options: let opts):
             return """
                 const basedClient = new Based.BasedClient({
-                    cluster: 'production',
+                    cluster: '\(opts.cluster ?? "production")',
                     org: '\(opts.org)',
                     project: '\(opts.project)',
                     env: '\(opts.env)',
