@@ -50,7 +50,7 @@ import path from 'path';
 
 async function bundle() {
   try {
-    console.log('🔨 Bundling Based Client...\n');
+    console.log('Bundling Based Client...\n');
 
     const result = await esbuild.build({
       entryPoints: ['./node_modules/@based/client/dist/src/index.js'],
