@@ -4,46 +4,42 @@ Swift native client for https://github.com/atelier-saulx/based-core/tree/main/do
 =======
 # Usage
 
-## Config
+## Setup
 ```
-let client = Based(config: BasedConfig(env: "env", project: "projectName", org: "organization"))
+let client = try await Based(basedOpts: BasedOpts.url("ws://localhost:1234"))
+
+or
+
+let client = try await BasedOpts.options(options: BasedOpts.Options(env: "env", org: "org", project: "prj"))
 ```
-## Get
+## Query once
 ```
-        do {
-            let result: [String: Int] = try await based.get(name: "functionName")
-            print(result)
-        } catch {
-            print(error)
-        }
+do {
+  let response: Response = try await client.query(name: "name")
+  print(response)
+} catch {
+  print(error)
+}
 ```
-## Delete
+## Call
 ```
-let res = try await client.delete(id: "root")
+do {
+let response: Response = try await client.call(
+                "function-name",
+                payload: Payload(..)
+              )
+} catch {
+  print(error)
+}
 ```
-## Set
+## Subscribe
 ```
-let res = try await client.set(query: BasedQuery.query(.field("type", "thing"), .field("name", name)))
-```
-## Observe
-```
-    var sequence: AsyncThrowingStream<[String: Int]>!
-    var task: Task<(), Error>?
-    
-    ...
-        
-    sequence = based.subscribe(name: "functionName")
-    task = Task {
-        do {
-            for try await c in sequence {
-                print(c)
-            }
-        } catch {
-            print(error)
-        }
-    }
-    
-    ...
-    task.cancel()
-    task = nil
+do {
+  let response: AsyncThrowingStream<Response, Error> = try await client.queryStream("some-list", payload: Payload(...)
+  for try await item in response {
+      print(item)
+  }
+} catch {
+  print(error)
+}
 ```

@@ -2,12 +2,20 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Playground.playground">
+      location = "group:BasedClient">
    </FileRef>
-   <FileRef
-      location = "group:">
-   </FileRef>
-   <FileRef
-      location = "group:Examples/BasicExample/BasicExample.xcodeproj">
-   </FileRef>
+   <Group
+      location = "group:Examples"
+      name = "Examples">
+      <FileRef
+         location = "group:SwiftBasedClient-Example/SwiftBasedClient-Example.xcodeproj">
+      </FileRef>
+   </Group>
+   <Group
+      location = "group:Scripts"
+      name = "Scripts">
+      <FileRef
+         location = "group:build-js-based-client.sh">
+      </FileRef>
+   </Group>
 </Workspace>
