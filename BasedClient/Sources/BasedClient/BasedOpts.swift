@@ -37,12 +37,16 @@ public enum BasedOpts: Sendable {
             """
         case .options(options: let opts):
             return """
+            (async () => {
                 const basedClient = new Based.BasedClient({
                     cluster: '\(opts.cluster ?? "production")',
                     org: '\(opts.org)',
                     project: '\(opts.project)',
                     env: '\(opts.env)',
                 })
+                globalThis.basedClient = basedClient;
+                await basedClient.connect();
+            })();            
             """
         }
     }
