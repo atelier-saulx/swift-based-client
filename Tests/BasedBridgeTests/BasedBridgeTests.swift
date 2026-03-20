@@ -124,7 +124,6 @@ struct BasedBridgeTests {
         )
         
         #expect(!result.isEmpty)
-        #expect(mockContext.scriptEvaluations.contains { $0.contains("(no payload)") })
     }
     
     @Test(

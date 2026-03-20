@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		492169232EC37B3200E5E80B /* BasedClient in Frameworks */ = {isa = PBXBuildFile; productRef = 492169222EC37B3200E5E80B /* BasedClient */; };
+		49235A8E2F6D4DBB00AA0B29 /* BasedClient in Frameworks */ = {isa = PBXBuildFile; productRef = 49235A8D2F6D4DBB00AA0B29 /* BasedClient */; };
 		496D33562EC7EF8600359552 /* BasedClient in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 492169222EC37B3200E5E80B /* BasedClient */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		49E41ED52EC4C3AA00538F2F /* BasedClient in Frameworks */ = {isa = PBXBuildFile; productRef = 49E41ED42EC4C3AA00538F2F /* BasedClient */; };
 /* End PBXBuildFile section */
@@ -56,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49235A8E2F6D4DBB00AA0B29 /* BasedClient in Frameworks */,
 				492169232EC37B3200E5E80B /* BasedClient in Frameworks */,
 				49E41ED52EC4C3AA00538F2F /* BasedClient in Frameworks */,
 			);
@@ -111,6 +113,7 @@
 			packageProductDependencies = (
 				492169222EC37B3200E5E80B /* BasedClient */,
 				49E41ED42EC4C3AA00538F2F /* BasedClient */,
+				49235A8D2F6D4DBB00AA0B29 /* BasedClient */,
 			);
 			productName = "SwiftBasedClient-Example";
 			productReference = 493543AE2EBE8F3200FBBDA4 /* SwiftBasedClient-Example.app */;
@@ -141,7 +144,7 @@
 			mainGroup = 493543A52EBE8F3200FBBDA4;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				49E41ED32EC4C3AA00538F2F /* XCLocalSwiftPackageReference "../../BasedClient" */,
+				49235A8C2F6D4DBB00AA0B29 /* XCLocalSwiftPackageReference "../../../swift-based-client" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 493543AF2EBE8F3200FBBDA4 /* Products */;
@@ -405,14 +408,18 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		49E41ED32EC4C3AA00538F2F /* XCLocalSwiftPackageReference "../../BasedClient" */ = {
+		49235A8C2F6D4DBB00AA0B29 /* XCLocalSwiftPackageReference "../../../swift-based-client" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../BasedClient;
+			relativePath = "../../../swift-based-client";
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		492169222EC37B3200E5E80B /* BasedClient */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = BasedClient;
+		};
+		49235A8D2F6D4DBB00AA0B29 /* BasedClient */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = BasedClient;
 		};

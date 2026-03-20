@@ -28,7 +28,8 @@ let package = Package(
         ),
         .testTarget(
             name: "BasedClientTests",
-            dependencies: ["BasedClient"]
+            dependencies: ["BasedClient"],
+            path: "Tests"
         )
     ]
 )
