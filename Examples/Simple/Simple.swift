@@ -1,6 +1,6 @@
 //
-//  SwiftBasedClient_ExampleApp.swift
-//  SwiftBasedClient-Example
+//  Simple.swift
+//  Simple
 //
 //  Created by Alexander van der Werff on 07/11/2025.
 //
@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct SwiftBasedClient_ExampleApp: App {
+struct Simple: App {
     var body: some Scene {
         WindowGroup {
             ContentView()

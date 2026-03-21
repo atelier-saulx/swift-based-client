@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "493543AD2EBE8F3200FBBDA4"
-               BuildableName = "SwiftBasedClient-Example.app"
-               BlueprintName = "SwiftBasedClient-Example"
-               ReferencedContainer = "container:SwiftBasedClient-Example.xcodeproj">
+               BuildableName = "Simple.app"
+               BlueprintName = "Simple"
+               ReferencedContainer = "container:Simple.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "493543AD2EBE8F3200FBBDA4"
-            BuildableName = "SwiftBasedClient-Example.app"
-            BlueprintName = "SwiftBasedClient-Example"
-            ReferencedContainer = "container:SwiftBasedClient-Example.xcodeproj">
+            BuildableName = "Simple.app"
+            BlueprintName = "Simple"
+            ReferencedContainer = "container:Simple.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "493543AD2EBE8F3200FBBDA4"
-            BuildableName = "SwiftBasedClient-Example.app"
-            BlueprintName = "SwiftBasedClient-Example"
-            ReferencedContainer = "container:SwiftBasedClient-Example.xcodeproj">
+            BuildableName = "Simple.app"
+            BlueprintName = "Simple"
+            ReferencedContainer = "container:Simple.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

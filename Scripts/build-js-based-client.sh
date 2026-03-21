@@ -8,7 +8,7 @@ echo "===================================================="
 echo ""
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-PACKAGE_ROOT="$( cd "$SCRIPT_DIR/../BasedClient" && pwd )"
+PACKAGE_ROOT="$( cd "$SCRIPT_DIR/../." && pwd )"
 TEMP_DIR="$PACKAGE_ROOT/.build-temp"
 RESOURCES_DIR="$PACKAGE_ROOT/Sources/BasedClient/Resources"
 

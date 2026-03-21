@@ -12,7 +12,6 @@ let package = Package(
     products: [
         .library(
             name: "BasedClient",
-            type: .dynamic,
             targets: ["BasedClient"]
         ),
     ],
@@ -28,7 +27,8 @@ let package = Package(
         ),
         .testTarget(
             name: "BasedClientTests",
-            dependencies: ["BasedClient"]
+            dependencies: ["BasedClient"],
+            path: "Tests"
         )
     ]
 )

@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		492169232EC37B3200E5E80B /* BasedClient in Frameworks */ = {isa = PBXBuildFile; productRef = 492169222EC37B3200E5E80B /* BasedClient */; };
-		496D33562EC7EF8600359552 /* BasedClient in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 492169222EC37B3200E5E80B /* BasedClient */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		49E41ED52EC4C3AA00538F2F /* BasedClient in Frameworks */ = {isa = PBXBuildFile; productRef = 49E41ED42EC4C3AA00538F2F /* BasedClient */; };
+		497F3C812F6E00B100CF7B26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 497F3C7D2F6E00B100CF7B26 /* Assets.xcassets */; };
+		497F3C832F6E00B100CF7B26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497F3C7E2F6E00B100CF7B26 /* ContentView.swift */; };
+		497F3C842F6E00B100CF7B26 /* Simple.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497F3C802F6E00B100CF7B26 /* Simple.swift */; };
+		49911E142F6F066600889FFA /* BasedClient in Frameworks */ = {isa = PBXBuildFile; productRef = 49911E132F6F066600889FFA /* BasedClient */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -19,7 +20,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				496D33562EC7EF8600359552 /* BasedClient in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -27,37 +27,19 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		493543AE2EBE8F3200FBBDA4 /* SwiftBasedClient-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SwiftBasedClient-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		493543AE2EBE8F3200FBBDA4 /* Simple.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Simple.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		497F3C7D2F6E00B100CF7B26 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		497F3C7E2F6E00B100CF7B26 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		497F3C7F2F6E00B100CF7B26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		497F3C802F6E00B100CF7B26 /* Simple.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Simple.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		492169252EC3890D00E5E80B /* Exceptions for "SwiftBasedClient-Example" folder in "SwiftBasedClient-Example" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 493543AD2EBE8F3200FBBDA4 /* SwiftBasedClient-Example */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		493543B02EBE8F3200FBBDA4 /* SwiftBasedClient-Example */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				492169252EC3890D00E5E80B /* Exceptions for "SwiftBasedClient-Example" folder in "SwiftBasedClient-Example" target */,
-			);
-			path = "SwiftBasedClient-Example";
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		493543AB2EBE8F3200FBBDA4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				492169232EC37B3200E5E80B /* BasedClient in Frameworks */,
-				49E41ED52EC4C3AA00538F2F /* BasedClient in Frameworks */,
+				49911E142F6F066600889FFA /* BasedClient in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,7 +56,10 @@
 		493543A52EBE8F3200FBBDA4 = {
 			isa = PBXGroup;
 			children = (
-				493543B02EBE8F3200FBBDA4 /* SwiftBasedClient-Example */,
+				497F3C7D2F6E00B100CF7B26 /* Assets.xcassets */,
+				497F3C7E2F6E00B100CF7B26 /* ContentView.swift */,
+				497F3C7F2F6E00B100CF7B26 /* Info.plist */,
+				497F3C802F6E00B100CF7B26 /* Simple.swift */,
 				492169212EC37B3200E5E80B /* Frameworks */,
 				493543AF2EBE8F3200FBBDA4 /* Products */,
 			);
@@ -83,7 +68,7 @@
 		493543AF2EBE8F3200FBBDA4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				493543AE2EBE8F3200FBBDA4 /* SwiftBasedClient-Example.app */,
+				493543AE2EBE8F3200FBBDA4 /* Simple.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -91,9 +76,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		493543AD2EBE8F3200FBBDA4 /* SwiftBasedClient-Example */ = {
+		493543AD2EBE8F3200FBBDA4 /* Simple */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 493543B92EBE8F3400FBBDA4 /* Build configuration list for PBXNativeTarget "SwiftBasedClient-Example" */;
+			buildConfigurationList = 493543B92EBE8F3400FBBDA4 /* Build configuration list for PBXNativeTarget "Simple" */;
 			buildPhases = (
 				493543AA2EBE8F3200FBBDA4 /* Sources */,
 				493543AB2EBE8F3200FBBDA4 /* Frameworks */,
@@ -104,16 +89,12 @@
 			);
 			dependencies = (
 			);
-			fileSystemSynchronizedGroups = (
-				493543B02EBE8F3200FBBDA4 /* SwiftBasedClient-Example */,
-			);
-			name = "SwiftBasedClient-Example";
+			name = Simple;
 			packageProductDependencies = (
-				492169222EC37B3200E5E80B /* BasedClient */,
-				49E41ED42EC4C3AA00538F2F /* BasedClient */,
+				49911E132F6F066600889FFA /* BasedClient */,
 			);
 			productName = "SwiftBasedClient-Example";
-			productReference = 493543AE2EBE8F3200FBBDA4 /* SwiftBasedClient-Example.app */;
+			productReference = 493543AE2EBE8F3200FBBDA4 /* Simple.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -131,7 +112,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 493543A92EBE8F3200FBBDA4 /* Build configuration list for PBXProject "SwiftBasedClient-Example" */;
+			buildConfigurationList = 493543A92EBE8F3200FBBDA4 /* Build configuration list for PBXProject "Simple" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -141,14 +122,13 @@
 			mainGroup = 493543A52EBE8F3200FBBDA4;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				49E41ED32EC4C3AA00538F2F /* XCLocalSwiftPackageReference "../../BasedClient" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 493543AF2EBE8F3200FBBDA4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				493543AD2EBE8F3200FBBDA4 /* SwiftBasedClient-Example */,
+				493543AD2EBE8F3200FBBDA4 /* Simple */,
 			);
 		};
 /* End PBXProject section */
@@ -158,6 +138,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				497F3C812F6E00B100CF7B26 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +149,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				497F3C832F6E00B100CF7B26 /* ContentView.swift in Sources */,
+				497F3C842F6E00B100CF7B26 /* Simple.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,7 +292,7 @@
 					"$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "SwiftBasedClient-Example/Info.plist";
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -352,7 +335,7 @@
 					"$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "SwiftBasedClient-Example/Info.plist";
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -384,7 +367,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		493543A92EBE8F3200FBBDA4 /* Build configuration list for PBXProject "SwiftBasedClient-Example" */ = {
+		493543A92EBE8F3200FBBDA4 /* Build configuration list for PBXProject "Simple" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				493543B72EBE8F3400FBBDA4 /* Debug */,
@@ -393,7 +376,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		493543B92EBE8F3400FBBDA4 /* Build configuration list for PBXNativeTarget "SwiftBasedClient-Example" */ = {
+		493543B92EBE8F3400FBBDA4 /* Build configuration list for PBXNativeTarget "Simple" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				493543BA2EBE8F3400FBBDA4 /* Debug */,
@@ -404,19 +387,8 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		49E41ED32EC4C3AA00538F2F /* XCLocalSwiftPackageReference "../../BasedClient" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../BasedClient;
-		};
-/* End XCLocalSwiftPackageReference section */
-
 /* Begin XCSwiftPackageProductDependency section */
-		492169222EC37B3200E5E80B /* BasedClient */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = BasedClient;
-		};
-		49E41ED42EC4C3AA00538F2F /* BasedClient */ = {
+		49911E132F6F066600889FFA /* BasedClient */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = BasedClient;
 		};
