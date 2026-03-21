@@ -10,7 +10,6 @@
 		497F3C812F6E00B100CF7B26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 497F3C7D2F6E00B100CF7B26 /* Assets.xcassets */; };
 		497F3C832F6E00B100CF7B26 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497F3C7E2F6E00B100CF7B26 /* ContentView.swift */; };
 		497F3C842F6E00B100CF7B26 /* SwiftBasedClient_ExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497F3C802F6E00B100CF7B26 /* SwiftBasedClient_ExampleApp.swift */; };
-		49911E142F6F066600889FFA /* BasedClient in Frameworks */ = {isa = PBXBuildFile; productRef = 49911E132F6F066600889FFA /* BasedClient */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -39,7 +38,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49911E142F6F066600889FFA /* BasedClient in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,7 +89,6 @@
 			);
 			name = Simple;
 			packageProductDependencies = (
-				49911E132F6F066600889FFA /* BasedClient */,
 			);
 			productName = "SwiftBasedClient-Example";
 			productReference = 493543AE2EBE8F3200FBBDA4 /* Simple.app */;
@@ -386,13 +383,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		49911E132F6F066600889FFA /* BasedClient */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = BasedClient;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 493543A62EBE8F3200FBBDA4 /* Project object */;
 }

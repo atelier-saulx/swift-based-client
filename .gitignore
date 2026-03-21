@@ -10,3 +10,5 @@ DerivedData/
 /Sources/BasedCplusplusClient/cpp-client/prebuilt-libs/*
 /based-universal-v2.1.1-xcframework.zip
 /Based.xcframework
+
+*.xcodeproj/project.xcworkspace/xcshareddata/swiftpm
