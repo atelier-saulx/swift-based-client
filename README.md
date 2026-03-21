@@ -8,7 +8,7 @@ Add BasedClient to your project via Swift Package Manager:
  
 ```swift
 dependencies: [
-    .package(url: "https://github.com/atelier-saulx/swift-based-client", from: "0.7.0")
+    .package(url: "https://github.com/atelier-saulx/swift-based-client", from: "0.7.2")
 ]
 ```
  
