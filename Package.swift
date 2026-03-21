@@ -12,7 +12,6 @@ let package = Package(
     products: [
         .library(
             name: "BasedClient",
-            type: .dynamic,
             targets: ["BasedClient"]
         ),
     ],
